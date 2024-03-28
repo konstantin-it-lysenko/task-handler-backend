@@ -90,4 +90,17 @@ export class AuthService {
       sameSite: 'none'
     })
   }
+
+  removeRefreshTokenToResponse(res: Response) {
+    res.cookie(this.REFRESH_TOKEN_NAME, '', {
+      httpOnly: true,
+      // domain/production from env || localhost
+      domain: 'localhost',
+      expires: new Date(0),
+      // true if production
+      secure: true,
+      // lax if production
+      sameSite: 'none'
+    })
+  }
 }
