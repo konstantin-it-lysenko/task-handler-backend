@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException
@@ -19,6 +20,22 @@ export class AuthService {
     // we don't send hashed or other types of passwords in response
     // eslint-disable-next-line
     const { password, ...user } = await this.validateUser(dto)
+
+    const tokens = this.issueTokens(user.id)
+
+    return {
+      user,
+      ...tokens
+    }
+  }
+
+  async register(dto: AuthDto) {
+    const isUserExists = await this.userService.getByEmail(dto.email)
+
+    if (isUserExists) throw new BadRequestException('User already exists')
+
+    // eslint-disable-next-line
+    const { password, ...user } = await this.userService.create(dto)
 
     const tokens = this.issueTokens(user.id)
 
