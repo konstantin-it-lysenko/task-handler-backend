@@ -8,9 +8,13 @@ import { JwtService } from '@nestjs/jwt'
 import { UserService } from 'src/user/user.service'
 import { AuthDto } from './dto/auth.dto'
 import { verify } from 'argon2'
+import { Response } from 'express'
 
 @Injectable()
 export class AuthService {
+  EXPIRE_DAY_REFRESH_TOKEN = 1
+  REFRESH_TOKEN_NAME = 'refreshToken'
+
   constructor(
     private jwt: JwtService,
     private userService: UserService
@@ -69,5 +73,21 @@ export class AuthService {
     if (!isValid) throw new UnauthorizedException('Invalid data')
 
     return user
+  }
+
+  addRefreshTokenToResponse(res: Response, refreshToken: string) {
+    const expiresIn = new Date()
+    expiresIn.setDate(expiresIn.getDate() + this.EXPIRE_DAY_REFRESH_TOKEN)
+
+    res.cookie(this.REFRESH_TOKEN_NAME, refreshToken, {
+      httpOnly: true,
+      // domain/production from env || localhost
+      domain: 'localhost',
+      expires: expiresIn,
+      // true if production
+      secure: true,
+      // lax if production
+      sameSite: 'none'
+    })
   }
 }
