@@ -16,7 +16,16 @@ export class AuthService {
   ) {}
 
   async login(dto: AuthDto) {
-    return dto
+    // we don't send hashed or other types of passwords in response
+    // eslint-disable-next-line
+    const { password, ...user } = await this.validateUser(dto)
+
+    const tokens = this.issueTokens(user.id)
+
+    return {
+      user,
+      ...tokens
+    }
   }
 
   private issueTokens(userId: string) {
