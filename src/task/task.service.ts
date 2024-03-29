@@ -5,4 +5,12 @@ import { PrismaService } from 'src/prisma.service'
 @Injectable()
 export class TaskService {
   constructor(private prisma: PrismaService) {}
+
+  async getAll(userId: string) {
+    return this.prisma.task.findMany({
+      where: {
+        userId
+      }
+    })
+  }
 }
