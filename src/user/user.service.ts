@@ -96,7 +96,11 @@ export class UserService {
       where: {
         id
       },
-      data
+      data,
+      select: {
+        name: true,
+        email: true
+      }
     })
   }
 }
