@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   Param,
@@ -42,5 +43,12 @@ export class TaskController {
     @Param('id') id: string
   ) {
     return this.taskService.update(dto, id, userId)
+  }
+
+  @HttpCode(200)
+  @Delete(':id')
+  @Auth()
+  async delete(@Param('id') id: string) {
+    return this.taskService.delete(id)
   }
 }
