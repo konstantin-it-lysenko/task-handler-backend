@@ -3,7 +3,9 @@ import {
   Controller,
   Get,
   HttpCode,
+  Param,
   Post,
+  Put,
   UsePipes,
   ValidationPipe
 } from '@nestjs/common'
@@ -28,5 +30,17 @@ export class TaskController {
   @Auth()
   async create(@Body() dto: TaskDto, @CurrentUser('id') userId: string) {
     return this.taskService.create(dto, userId)
+  }
+
+  @UsePipes(new ValidationPipe())
+  @HttpCode(200)
+  @Put(':id')
+  @Auth()
+  async update(
+    @Body() dto: TaskDto,
+    @CurrentUser('id') userId: string,
+    @Param('id') id: string
+  ) {
+    return this.taskService.update(dto, id, userId)
   }
 }
