@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
+  Param,
   Post,
   Put,
   UsePipes,
@@ -38,5 +40,12 @@ export class TimeBlockController {
   @Auth()
   updateOrder(@Body() updateOrderDto: UpdateOrderDto) {
     return this.timeBlockService.updateOrder(updateOrderDto.ids)
+  }
+
+  @HttpCode(200)
+  @Delete(':id')
+  @Auth()
+  async delete(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.timeBlockService.delete(id, userId)
   }
 }
