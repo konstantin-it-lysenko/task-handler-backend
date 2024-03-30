@@ -43,4 +43,13 @@ export class TimeBlockService {
       data: dto
     })
   }
+
+  async delete(timeBlockId: string, userId: string) {
+    return this.prisma.timeblock.delete({
+      where: {
+        id: timeBlockId,
+        userId
+      }
+    })
+  }
 }
