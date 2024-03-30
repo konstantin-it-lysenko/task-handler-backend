@@ -52,4 +52,15 @@ export class TimeBlockService {
       }
     })
   }
+
+  async updateOrder(ids: string[]) {
+    return this.prisma.$transaction(
+      ids.map((id, order) =>
+        this.prisma.timeblock.update({
+          where: { id },
+          data: { order }
+        })
+      )
+    )
+  }
 }
