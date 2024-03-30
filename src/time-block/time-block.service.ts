@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
-// import { TimeBlockDto } from './dto/time-block.dto'
+import { TimeBlockDto } from './dto/time-block.dto'
 
 @Injectable()
 export class TimeBlockService {
@@ -13,6 +13,19 @@ export class TimeBlockService {
       },
       orderBy: {
         order: 'asc'
+      }
+    })
+  }
+
+  async create(dto: TimeBlockDto, userId: string) {
+    return this.prisma.timeblock.create({
+      data: {
+        ...dto,
+        user: {
+          connect: {
+            id: userId
+          }
+        }
       }
     })
   }
