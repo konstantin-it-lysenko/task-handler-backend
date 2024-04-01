@@ -97,7 +97,7 @@ export class AuthService {
     res.cookie(this.REFRESH_TOKEN_NAME, refreshToken, {
       httpOnly: true,
       // domain/production from env || localhost
-      domain: 'https://task-handler-frontend.vercel.app',
+      domain: 'task-handler-frontend.vercel.app',
       expires: expiresIn,
       // true if production
       secure: true,
@@ -110,7 +110,7 @@ export class AuthService {
     res.cookie(this.REFRESH_TOKEN_NAME, '', {
       httpOnly: true,
       // domain/production from env || localhost
-      domain: 'https://task-handler-frontend.vercel.app',
+      domain: 'task-handler-frontend.vercel.app',
       expires: new Date(0),
       // true if production
       secure: true,

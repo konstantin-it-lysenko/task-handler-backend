@@ -9,8 +9,8 @@ async function bootstrap() {
   app.use(cookieParser())
   app.enableCors({
     origin: [
-      // 'http://localhost:3000',
-      'https://task-handler-frontend.vercel.app'
+      'https://task-handler-frontend.vercel.app',
+      'http://localhost:3000'
     ],
     credentials: true,
     exposedHeaders: 'set-cookie'
