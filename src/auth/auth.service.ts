@@ -100,7 +100,7 @@ export class AuthService {
       domain: 'task-handler-frontend.vercel.app',
       expires: expiresIn,
       // true if production
-      secure: false,
+      secure: true,
       // lax if production
       sameSite: 'none'
     })
@@ -114,7 +114,7 @@ export class AuthService {
       domain: 'task-handler-frontend.vercel.app',
       expires: new Date(0),
       // true if production
-      secure: false,
+      secure: true,
       // lax if production
       sameSite: 'none'
     })
