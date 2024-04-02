@@ -102,7 +102,7 @@ export class AuthService {
       // true if production
       secure: true,
       // lax if production
-      sameSite: 'lax'
+      sameSite: 'none'
     })
   }
 
@@ -116,7 +116,7 @@ export class AuthService {
       // true if production
       secure: true,
       // lax if production
-      sameSite: 'lax'
+      sameSite: 'none'
     })
   }
 }
