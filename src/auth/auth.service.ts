@@ -102,7 +102,7 @@ export class AuthService {
       // true if production
       secure: true,
       // lax if production
-      sameSite: 'none'
+      sameSite: 'lax'
     })
   }
 
@@ -110,12 +110,13 @@ export class AuthService {
     res.cookie(this.REFRESH_TOKEN_NAME, '', {
       httpOnly: true,
       // domain/production from env || localhost
+      // task-handler-frontend.vercel.app
       domain: 'task-handler-frontend.vercel.app',
       expires: new Date(0),
       // true if production
       secure: true,
       // lax if production
-      sameSite: 'none'
+      sameSite: 'lax'
     })
   }
 }
